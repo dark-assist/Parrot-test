@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4081;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff1c70;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        #confettiCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday Bro !</h1>
+        <p>Party 🎉 kobe dibi ? Ar 'Click For a Suprise' Tai Click Kor.</p>
+        <button id="wishButton">Click for a Surprise!</button>
+        <div id="surprise" class="hidden">
+            <img src="https://raw.githubusercontent.com/dark-assist/Cloudpc/main/images.jpeg" alt="Birthday Cake">
+            <audio id="birthdaySong" src="https://github.com/dark-assist/Cloudpc/raw/main/1723868410585wngrlck-voicemaker.in-speech.mp3"></audio>
+            <button onclick="playSong()">Play Song</button>
+        </div>
+    </div>
+    <canvas id="confettiCanvas"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        document.getElementById("wishButton").addEventListener("click", function() {
+            document.getElementById("surprise").classList.remove("hidden");
+        });
+
+        function playSong() {
+            document.getElementById("birthdaySong").play();
+            startConfetti();
+        }
+
+        function startConfetti() {
+            const confettiCanvas = document.getElementById("confettiCanvas");
+            const myConfetti = confetti.create(confettiCanvas, { resize: true });
+
+            function continuousConfetti() {
+                myConfetti({
+                    particleCount: 1,
+                    spread: 360,
+                    startVelocity: 30,
+                    ticks: 200,
+                    gravity: 0.5,
+                    origin: {
+                        x: Math.random(),
+                        y: Math.random() - 0.2
+                    },
+                    colors: ['#ff4081', '#ff1c70', '#ffd700', '#7fff00', '#00bfff']
+                });
+
+                requestAnimationFrame(continuousConfetti);
+            }
+
+            continuousConfetti();
+        }
+
+        // Start continuous confetti as background effect
+        startConfetti();
+    </script>
+</body>
+</html>
